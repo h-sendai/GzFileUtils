@@ -7,7 +7,7 @@
  * @author Hiroshi Sendai  <hiroshi.sendai@kek.jp>
  *
  * Copyright (C) 2011, 2016
- *     Kazuo Nakayoshi
+ *     Kazuo Nakayoshi, Hiroshi Sendai
  *     Electronics System Group,
  *     KEK, Japan.
  *     All rights reserved.
@@ -150,6 +150,14 @@ int GzFileUtils::write_data(char* data, unsigned long size)
     // XXX: Raw data size (not compressed size)
     //      If we zlib >= 1.2.3.5, we can use gzoffset(gzFile)
     m_file_info.size += size;
+#if ZLIB_VERNUM >= 0x1235
+    m_file_info.compresed_size = gzoffset(m_file_info.file);
+#endif
+//  int current_file_size = boost::filesystem::file_size(m_file_info.file_path);
+//  if ((m_max_size > 0) && (m_max_size <= current_file_size)) {
+//      close_file();
+//      open_file_incr_branch(m_dir_name);
+//  }
 
     if ((m_max_size > 0) && (m_max_size <= m_file_info.size)) {
         close_file();

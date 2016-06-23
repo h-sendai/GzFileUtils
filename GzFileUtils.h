@@ -38,6 +38,9 @@ struct GzFileInfo {
     unsigned long long size;
     int branch_no;
     unsigned int run_no;
+#if ZLIB_VERNUM >= 0x1235
+    unsigned long long compressed_size
+#endif
 };
 
 class GzFileUtils
@@ -70,6 +73,9 @@ private:
 
     static const unsigned int MAX_RUN_NO = 999999;
     unsigned long long m_max_size;
+#if ZLIB_VERNUM >= 0x1235
+    unsigned long long m_compressed_max_size;
+#endif
     GzFileInfo m_file_info;
     std::string m_ext_name;
     std::string m_dir_name;
