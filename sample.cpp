@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-    GzFileUtils *g = new GzFileUtils::GzFileUtils();
+    GzFileUtils *g = new GzFileUtils();
     
     g->open_file("/tmp/abc");
     g->set_max_size_in_megaBytes(1);
